@@ -7,9 +7,15 @@
   tags:
     - facts
 
+- name: Force binaries directory for Container Linux by CoreOS
+  set_fact:
+    bin_dir: "/opt/bin"
+  tags:
+    - facts
+
 - name: Bootstrap | Run bootstrap.sh
   script: bootstrap.sh
-  when: need_bootstrap.rc != 0
+  when: need_bootstrap != 0
 
 - set_fact:
     ansible_python_interpreter: "/opt/bin/python"
@@ -22,7 +28,7 @@
   failed_when: false
   changed_when: false
   check_mode: no
-  when: need_bootstrap.rc != 0
+  when: need_bootstrap != 0
   tags:
     - facts
 
